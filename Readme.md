@@ -25,7 +25,7 @@ This app was built for test purposes, as it is obviously easier to use the `Git 
 # Design decisions
 I was debating over using proper html parsing (a library like lxml or even something more powerful like BeautifulSoup). This means that we have to store a full HTML page (about 100KB) and build a tree-like structure by doing XML-parsing. Searches are approx O(n log(n)) - not too bad for our case, but not great if we have to go through multiple pages of search results.
 
-For this particular case I think the requirements are satisied by using regex matching.
+For this particular case I think the requirements are satisfied by using regex matching.
 
 Also I wanted to optimize as much as possible for performance (both CPU and Memory). After analyzing the HTML code of the GitHub pages, i found it was possible to use single line patterns. This allows us to do a "streaming" implementation, where the HTML is read line-by-line using an iterator and it can yeld matches to the consumer as soon as they are found. This means that "ideally" we don't need to keep more than one line in memory at a time (this varies because of HTTP buffers, etc). Also regex is quite fast (mostly linear).
 
