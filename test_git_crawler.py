@@ -1,11 +1,12 @@
 import unittest
 import time
+import requests
 
 from git_crawler import GitCrawler, Job, JobManager
 
 class TestJob(unittest.TestCase):
   def test_create_job(self):
-    url = 'http://test.com'
+    url = 'http://test.comb'
     proxy = None
     pattern = r'test'
     name = 'test-job'
@@ -14,6 +15,7 @@ class TestJob(unittest.TestCase):
     self.assertEqual(j.pattern, pattern)
     self.assertEqual(j.proxy, proxy)
     self.assertEqual(j.job_id, name)
+    response = j.run()
 
 
   def test_run_parsing(self):
@@ -29,7 +31,19 @@ class TestJob(unittest.TestCase):
     expected_result = 'Herman Melville - Moby-Dick'
     self.assertEqual(results[0], expected_result)
 
-  # TODO: add negative cases
+  def test_run_bad_url(self):
+    url = 'http://githubbb.org'
+    proxy = None
+    pattern = r'<h1>(.*?)<\/h1>'
+    name = 'test-job'
+
+    j = Job(url, proxy, pattern, name)
+
+    with self.assertRaises(requests.exceptions.ConnectionError) as context:
+      response = j.run()
+      list(response)
+
+  # TODO: add more negative cases
 
 
 class TestJobManager(unittest.TestCase):
@@ -67,7 +81,6 @@ class TestJobManager(unittest.TestCase):
       time.sleep(0.01)
     # test queue empty after run
     self.assertEqual(jm.jobs, {})
-
 
 
 class TestGitCrawler(unittest.TestCase):

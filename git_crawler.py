@@ -24,7 +24,7 @@ class Job():
     '''
     Generator, parses the HTML by line, matching the pattern expression (first occurence).
     '''
-    # TODO: Add exception handling
+    # TODO: Add exception handling >>> currenlty handled on thread run
     proxies = {'http': self.proxy} if self.proxy is not None else {}
     with requests.get(self.url, proxies=proxies, stream=True) as html:
       print('Parsing URL:', html.url, 'USING PATTERN:', self.pattern, 'VIA PROXY:', self.proxy)
@@ -67,9 +67,15 @@ class JobManager:
   def run_job(self, job, callback):
     if not hasattr(job, 'job_id') or not hasattr(job, 'run'):
       raise AttributeError(f"{type(job)} object missing attribute: job_id or function: run()")
+
     self.jobs[job] = callback
-    t = threading.Thread(target=self._thread, args=(job,))
-    t.start()
+    try: 
+      t = threading.Thread(target=self._thread, args=(job,))
+      t.start()
+    except Exception as e:
+      print('ERROR!!!', e)
+      raise e
+
 
   def running(self):
     return len(self.jobs) > 0

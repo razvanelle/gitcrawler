@@ -11,7 +11,7 @@ search_type = 'Repositories'
 
 
 # config
-BASE_URL = 'https://github.com'
+BASE_URL = 'https://githubbbb.com'
 
 TYPES = ['Repositories', 'Issues', 'Wikis']
 PATTERNS = [
@@ -31,19 +31,23 @@ print(full_url)
 
 def parse_with_pattern(full_url, proxies, pattern):
   result = []
+  try:
+    with requests.get(full_url, proxies=proxies, stream=True) as html:
+      print('Parsing URL:', html.url, 'USING PATTERN:', pattern, 'VIA PROXY:', proxies)
 
-  with requests.get(full_url, proxies=proxies, stream=True) as html:
-    print('Parsing URL:', html.url, 'USING PATTERN:', pattern, 'VIA PROXY:', proxies)
-
-    # we'll use the iter-lines iterator to save memory
-    for line in html.iter_lines():
-      if line:
-        line_str = line.decode('utf-8')
-        match = re.search(pattern, line_str)
-        if match is not None:
-          result.append(match.group(1))
-
-  return result
+      # we'll use the iter-lines iterator to save memory
+      for line in html.iter_lines():
+        if line:
+          line_str = line.decode('utf-8')
+          match = re.search(pattern, line_str)
+          if match is not None:
+            result.append(match.group(1))
+  except Exception as e:
+    print('Request Failed !!!', e)
+    return []
+  else:
+    print('Success!!!')
+    return result
 
 pattern = re.compile(PATTERNS[search_type])
 repos = parse_with_pattern(full_url, proxies, pattern)

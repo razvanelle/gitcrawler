@@ -95,3 +95,30 @@ Simply git clone this repository or download/unzip to a folder
   py run.py
 ```
 5. Hack away ...
+
+# Testing and coverage
+Requirements: Python 3, PIP, properly setup
+Dependencies: requsts, 
+Extras (for testing): pytest, coverage
+
+In order to run Unit Tests use command: 
+```
+  $> pytest
+```
+
+For coverage: 
+```
+  $> coverage run test_git_crawler.py
+  $> coverage report
+```
+
+Latest coverage report
+
+```
+Name                  Stmts   Miss  Cover
+-----------------------------------------
+git_crawler.py           70      0   100%
+test_git_crawler.py      65      0   100%
+-----------------------------------------
+TOTAL                   135      0   100%
+```
