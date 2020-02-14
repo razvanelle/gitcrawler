@@ -85,7 +85,7 @@ Simply git clone this repository or download/unzip to a folder
     'search_type': 'Repositories'
   }
 
-  git_crawler = GitCrawler(config) # TODO: make this context manager?
+  git_crawler = GitCrawler(config)
   results = git_crawler.run()
 
   print(results)
