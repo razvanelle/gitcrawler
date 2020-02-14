@@ -62,21 +62,29 @@ Also it has 2 specific callback handlers defined for the 2 types of jobs:
     ... # callsed after search results parsing started, looking for repositories.
 ```
 # Install and run
-Requirements: Python 3, PIP, properly setup
-Dependencies: requsts, 
+Requirements: Python 3, PIP, properly setup (environment vars)
+
+Dependencies: requsts
+
 Extras (for testing): pytest, coverage
 
-Simply git clone this repository or download/unzip to a folder
+Simply git clone this repository or download/unzip to a folder, `cd` to that folder and run commands:
 
-1. create virtual env:
+1. Create virtual env:
 ```
-  virtualenv venv
+  $> virtualenv venv
+  or 
+  $> python3 -m venv venv
 ```
-2. add PIP dependencies
+2. Activate venv, example for linux (look up the Windows alernative)
 ```
-  PIP install requests
+  $> source venv/Scripts/activate
 ```
-3. create a `run.py` file with content:
+3. Add PIP dependencies, either install manually the dependencies above, or:
+```
+  $> pip install -r requirement.txt  
+```
+4. Create a `run.py` file with content:
 ```
   config = {
     'keywords': ['python', 'html', 'parser'],
@@ -91,14 +99,11 @@ Simply git clone this repository or download/unzip to a folder
 ```
 4. Run
 ```
-  py run.py
+  $> py run.py
 ```
 5. Hack away ...
 
 # Testing and coverage
-Requirements: Python 3, PIP, properly setup
-Dependencies: requsts, 
-Extras (for testing): pytest, coverage
 
 In order to run Unit Tests use command: 
 ```
