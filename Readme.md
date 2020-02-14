@@ -101,11 +101,11 @@ results = git_crawler.run()
 
 print(results)
 ```
-4. Run
+5. Run
 ```
   $> py run.py
 ```
-5. Hack away ...
+6. Hack away ...
 
 # Testing and coverage
 
