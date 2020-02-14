@@ -88,16 +88,18 @@ Simply git clone this repository or download/unzip to a folder, `cd` to that fol
 ```
 4. Create a `run.py` file with content:
 ```
-  config = {
-    'keywords': ['python', 'html', 'parser'],
-    'proxies': ['89.42.133.58:8080', '176.62.188.158:56351', '167.99.164.136:80'],
-    'search_type': 'Repositories'
-  }
+from git_crawler import GitCrawler
 
-  git_crawler = GitCrawler(config)
-  results = git_crawler.run()
+config = {
+  'keywords': ['python', 'html', 'parser'],
+  'proxies': ['89.42.133.58:8080', '176.62.188.158:56351', '167.99.164.136:80'],
+  'search_type': 'Repositories'
+}
 
-  print(results)
+git_crawler = GitCrawler(config)
+results = git_crawler.run()
+
+print(results)
 ```
 4. Run
 ```
@@ -109,11 +111,13 @@ Simply git clone this repository or download/unzip to a folder, `cd` to that fol
 
 In order to run Unit Tests use command: 
 ```
+  $> pip install pytest
   $> pytest
 ```
 
 For coverage: 
 ```
+  $> pip install coverage
   $> coverage run test_git_crawler.py
   $> coverage report
 ```
